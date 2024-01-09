@@ -1,0 +1,55 @@
+:root{
+     --primary-color: #5F2EEA;
+     --secondary-color: #1CC8EE;
+     --error-color: #ED2E7E;
+     --success-color: #00BA88;
+     --warning-color: #F4B740;
+     --gradient-primary: linear-gradient(90deg, #7433FF 100%, #FFA3FD 100%);
+     --gradient-secondary: linear-gradient(90deg, #624AF2 100%, #50DDC3 100%);
+     --gradient-accent: linear-gradient(90deg, #EB0055 100%, #FFFA80 100%);
+     --color-title-active: #14142B;
+     --color-body: #4E4B66;
+     --color-label: #6E7191;
+     --color-placeholder: #A0A3BD;
+     --color-line: #D9DBE9;
+     --color-input-background: #EFF0F6;
+     --color-background: #F7F7FC;
+     --color-off-white: #FCFCFC; 
+     --color-secondary: #DB4444;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+.promotion{
+    background-color: black;
+    color: white;
+    border-radius: 0%;
+    text-align: center;
+    margin: 0;
+    padding: 16px;
+}
+
+.button2{
+    border-radius: 4px;
+    background: var(--color-secondary);
+    padding: 16px 48px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.discountPercent{
+    display: inline-flex;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    background: var(--color-secondary);
+}
