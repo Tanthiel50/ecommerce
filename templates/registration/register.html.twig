@@ -3,17 +3,43 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-    {{ form_errors(registrationForm) }}
+        <!-- Colonne pour l'image -->
+        <div class="col-md-6 d-none d-md-block">
+            <img src="{{ asset('images/website/registration.png') }}" class="img-fluid" alt="Image Description">
+        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <!-- Colonne pour le formulaire d'inscription -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Créer un compte</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_errors(registrationForm) }}
+                    {{ form_start(registrationForm, {'attr': {'class': 'form-horizontal'}}) }}
+                    <div class="form-group mb-3">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form_label(registrationForm.plainPassword, 'Password') }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                        {{ form_label(registrationForm.agreeTerms) }}
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="btn button2">S'enregistrer</button>
+                    </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}

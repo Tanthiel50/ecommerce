@@ -53,16 +53,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
-
     #[ORM\OneToMany(mappedBy: 'id_user', targetEntity: Reviews::class)]
     private Collection $rating;
+
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
 
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
         $this->rating = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
 
@@ -208,14 +209,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    public function setCreatedAt(\DateTime $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

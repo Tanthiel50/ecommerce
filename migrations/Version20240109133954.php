@@ -23,7 +23,8 @@ final class Version20240109133954 extends AbstractMigration
         $this->addSql('ALTER TABLE reviews ADD id_user_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE reviews ADD CONSTRAINT FK_6970EB0F79F37AE5 FOREIGN KEY (id_user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_6970EB0F79F37AE5 ON reviews (id_user_id)');
-        $this->addSql('ALTER TABLE user ADD first_name VARCHAR(255) DEFAULT NULL, ADD last_name VARCHAR(255) DEFAULT NULL, ADD pseudo VARCHAR(255) DEFAULT NULL, ADD adress LONGTEXT DEFAULT NULL, ADD zipcode VARCHAR(255) DEFAULT NULL, ADD city VARCHAR(255) DEFAULT NULL, ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('ALTER TABLE user ADD first_name VARCHAR(255) DEFAULT NULL, ADD last_name VARCHAR(255) DEFAULT NULL, ADD pseudo VARCHAR(255) DEFAULT NULL, ADD adress LONGTEXT DEFAULT NULL, ADD zipcode VARCHAR(255) DEFAULT NULL, ADD city VARCHAR(255) DEFAULT NULL');
+        $this->addSql("ALTER TABLE user ADD created_at DATETIME DEFAULT CURRENT_TIMESTAMP");
     }
 
     public function down(Schema $schema): void
