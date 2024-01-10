@@ -1,17 +1,18 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Products index{% endblock %}
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <h1>Liste des produits</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>Price</th>
+                <th>Prix</th>
                 <th>Stock</th>
                 <th>Color</th>
                 <th>Size</th>
@@ -29,8 +30,8 @@
                 <td>{{ product.color }}</td>
                 <td>{{ product.size }}</td>
                 <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}">Voir</a>
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}

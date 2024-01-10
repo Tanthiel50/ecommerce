@@ -4,7 +4,7 @@
   --error-color: #ed2e7e;
   --success-color: #00ba88;
   --warning-color: #f4b740;
-  --gradient-primary: linear-gradient(90deg, #7433ff 30%, #ffa3fd 100%);
+  --gradient-primary: linear-gradient(150deg, #7433ff 30%, #ffa3fd 100%);
   --gradient-secondary: linear-gradient(90deg, #624af2 30%, #50ddc3 100%);
   --gradient-accent: linear-gradient(90deg, #eb0055 30%, #fffa80 100%);
   --gradient-test: linear-gradient(90deg, #db4444 30%, #fcfcfc 100%);
@@ -91,3 +91,15 @@
   border-radius: 4px;
   background: var(--color-secondary);
 }
+
+.admin{
+  background: var(--color-body);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7px);
+  padding: 20px;
+  margin-top: 50px;
+  color: white;
+}
+
+
