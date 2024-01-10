@@ -53,6 +53,7 @@
   box-shadow: 0 0 20px #eee;
   border-radius: 4px;
   display: block;
+  text-decoration: none;
 }
 
 .button2:hover {
@@ -93,11 +94,17 @@
 }
 
 .admin {
-  background: var(--color-body);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(7px);
-  padding: 20px;
+  border: 1px solid #4e4b66;
   margin-top: 50px;
+}
+
+.list-group-item{
+  background: #db4444;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.list-group-item:hover{
+  background: #f4b740;
   color: white;
 }
