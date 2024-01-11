@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Images;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 class Products
@@ -43,7 +44,7 @@ class Products
     #[ORM\ManyToOne(inversedBy: 'product_id')]
     private ?Categories $categories = null;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: images::class)]
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     private Collection $image;
 
     public function __construct()

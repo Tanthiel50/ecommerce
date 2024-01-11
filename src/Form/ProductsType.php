@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Products;
+use App\Form\ImagesType; 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProductsType extends AbstractType
 {
@@ -20,6 +24,12 @@ class ProductsType extends AbstractType
             ->add('size')
             ->add('sales')
             ->add('categories')
+            ->add('image', FileType::class, [
+                'label' => 'Image produit',
+                'multiple' => true,
+                'mapped' => false, 
+                'required' => false,
+            ])
         ;
     }
 

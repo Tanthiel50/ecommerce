@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ImagesRepository;
+use phpDocumentor\Reflection\Types\Null_;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 class Images
@@ -16,8 +19,23 @@ class Images
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $alt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $path = null;
+
     #[ORM\ManyToOne(inversedBy: 'image')]
     private ?Products $products = null;
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): static
+    {
+        $this->path = $path;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
