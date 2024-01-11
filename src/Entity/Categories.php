@@ -22,7 +22,7 @@ class Categories
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: products::class)]
+    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: products::class, cascade: ['remove'])]
     private Collection $product_id;
 
     public function __construct()
