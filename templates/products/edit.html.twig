@@ -5,6 +5,18 @@
 {% block body %}
     <h1>Editer {{ product.name }}</h1>
 
+    {% for image in product.image %}
+    <div>
+        <img src="{{ asset('uploads/products/' ~ image.path) }}" alt="{{ image.alt }}">
+        <form action="{{ path('app_products_edit', {'id': product.id}) }}" method="POST">
+    <input type="hidden" name="image_to_delete" value="{{ image.id }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete_image' ~ image.id) }}">
+    <button type="submit">Supprimer</button>
+</form>
+
+    </div>
+{% endfor %}
+
     {{ include('products/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
     <a href="{{ path('app_products_index') }}">Retour a la liste de produit</a>

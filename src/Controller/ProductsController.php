@@ -114,10 +114,37 @@ class ProductsController extends AbstractController
                     $product->addImage($image);
                 }
             }
+            $imagesToDelete = $request->get('images_to_delete', []);
+            foreach ($imagesToDelete as $imageId) {
+                $image = $entityManager->getRepository(Images::class)->find($imageId);
+                if ($image) {
+                    $entityManager->remove($image);
+                    $imagePath = $this->getParameter('products_directory') . '/' . $image->getPath();
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath); 
+                    }
+                }
+            }
         
             $entityManager->flush();
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        if ($request->isMethod('POST')) {
+            $imageToDeleteId = $request->get('image_to_delete');
+            if ($imageToDeleteId) {
+                $imageToDelete = $entityManager->getRepository(Images::class)->find($imageToDeleteId);
+                if ($imageToDelete && $imageToDelete->getProducts() === $product) {
+                    $entityManager->remove($imageToDelete);
+                    $entityManager->flush();
+                }
+                $imagePath = $this->getParameter('products_directory') . '/' . $imageToDelete->getPath();
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); 
+                }
+            }
+        }
+        
         return $this->renderForm('products/edit.html.twig', [
             'product' => $product,
             'form' => $form,
