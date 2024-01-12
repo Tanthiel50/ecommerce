@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Images;
+use App\Entity\Orders;
 use App\Entity\Products;
 use App\Form\ProductsType;
+use App\Entity\OrderDetails;
 use App\Repository\ProductsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/products')]
 class ProductsController extends AbstractController
@@ -184,4 +186,37 @@ class ProductsController extends AbstractController
             // 'images' => $images, // Ajoutez d'autres variables si nécessaire
         ]);
     }
+
+    #[Route('/add-to-cart/{id}', name: 'add_to_cart')]
+public function addToCart(Request $request, Products $product, EntityManagerInterface $entityManager): Response
+{
+    $user = $this->getUser(); // Récupérer l'utilisateur actuel
+    if (!$user) {
+        // Rediriger l'utilisateur non connecté ou gérer différemment
+    }
+
+    // Vérifier si une commande "vide" existe déjà pour cet utilisateur
+    $order = $entityManager->getRepository(Orders::class)->findOneBy(['id_userOrder' => $user, 'statut' => 'vide']);
+
+    if (!$order) {
+        $order = new Orders();
+        $order->setIdUserOrder($user);
+        $order->setStatut('vide');
+        $order->setDate(new \DateTime()); // Définir la date actuelle
+        $entityManager->persist($order);
+    }
+
+    // Créer ou mettre à jour les détails de la commande
+    $orderDetail = new OrderDetails();
+    $orderDetail->setIdOrder($order);
+    $orderDetail->addIdProduct($product);
+    $orderDetail->setQuantity(1); // Exemple avec une quantité fixe
+    $orderDetail->setPrice($product->getPrice());
+    $entityManager->persist($orderDetail);
+
+    $entityManager->flush();
+
+    // Rediriger vers le panier ou la page produit
+    return $this->redirectToRoute('display_cart');
+}
 }

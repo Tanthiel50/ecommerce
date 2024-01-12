@@ -1,0 +1,24 @@
+{# templates/cart/display.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre Panier{% endblock %}
+
+{% block body %}
+    <h1>Votre Panier</h1>
+    {% if order %}
+        {% for detail in order.getOrderDetails %}
+            {% for product in detail.getIdProduct %}
+                <div>
+                    <p>Produit: {{ product.name }}</p>
+                    {# Afficher d'autres informations du produit si nécessaire #}
+                </div>
+            {% endfor %}
+            <p>Quantité: {{ detail.getQuantity() }}</p>
+            <p>Prix: {{ detail.getPrice() }}</p>
+            {# Autres informations de détail de commande #}
+        {% endfor %}
+    {% else %}
+        <p>Votre panier est vide.</p>
+    {% endif %}
+{% endblock %}
