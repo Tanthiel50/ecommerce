@@ -48,10 +48,14 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     private Collection $image;
 
+    #[ORM\ManyToMany(targetEntity: OrderDetails::class, mappedBy: 'id_product')]
+    private Collection $orderDetails;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->image = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
     }
 
     public function getEffectivePrice(): float
@@ -226,6 +230,33 @@ class Products
             if ($image->getProducts() === $this) {
                 $image->setProducts(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderDetails>
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetails $orderDetail): static
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails->add($orderDetail);
+            $orderDetail->addIdProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetails $orderDetail): static
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            $orderDetail->removeIdProduct($this);
         }
 
         return $this;

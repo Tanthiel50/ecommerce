@@ -59,11 +59,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
+    #[ORM\OneToMany(mappedBy: 'id_userOrder', targetEntity: Orders::class)]
+    private Collection $orders;
+
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
         $this->rating = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->orders = new ArrayCollection();
     }
 
 
@@ -245,6 +249,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($rating->getIdUser() === $this) {
                 $rating->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setIdUserOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getIdUserOrder() === $this) {
+                $order->setIdUserOrder(null);
             }
         }
 
