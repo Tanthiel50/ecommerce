@@ -25,10 +25,6 @@ class ProductsType extends AbstractType
             ->add('stock')
             ->add('color')
             ->add('size')
-            ->add('sales', EntityType::class, [
-                'class' => Sales::class,
-                'choice_label' => 'message',
-            ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
                 'choice_label' => 'title', 

@@ -108,3 +108,74 @@
   background: #f4b740;
   color: white;
 }
+
+.hero-banner {
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+
+  h1 {
+    color: #fff; // ou une autre couleur selon votre design
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #fff; // ou une autre couleur selon votre design
+    margin-bottom: 2rem;
+  }
+}
+
+.product-display {
+  .breadcrumb {
+    background: none;
+    padding-left: 0;
+    .breadcrumb-item + .breadcrumb-item::before {
+      content: ">";
+    }
+  }
+
+  .row {
+    align-items: center;
+  }
+
+  .product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .product-details {
+    h1 {
+      color: var(--color-title-active);
+      font-size: 2rem;
+    }
+
+    .product-description {
+      color: var(--color-body);
+      margin-bottom: 20px;
+    }
+
+    .product-price {
+      color: var(--primary-color);
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .product-actions {
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+
+        &:first-child {
+          margin-right: 1rem;
+        }
+
+        &:hover {
+          background-color: var(--primary-color);
+          border-color: var(--primary-color);
+          color: var(--color-off-white);
+        }
+      }
+    }
+  }
+}

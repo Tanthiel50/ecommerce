@@ -8,9 +8,10 @@
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
     "@symfony/webpack-encore": "^4.0.0",
     "core-js": "^3.23.0",
+    "node-sass": "^9.0.0",
     "regenerator-runtime": "^0.13.9",
     "sass": "^1.69.7",
-    "sass-loader": "^13.0.0",
+    "sass-loader": "^13.3.3",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-notifier": "^1.15.0"
@@ -18,9 +19,9 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-      "dev-server": "encore dev-server",
-      "dev": "encore dev",
-      "watch": "encore dev --watch",
-      "build": "encore production --progress"
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
   }
 }

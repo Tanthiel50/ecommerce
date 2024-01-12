@@ -28,7 +28,7 @@
                 <td>{{ product.description }}</td>
                 <td>
     {% set effectivePrice = product.getEffectivePrice() %}
-    {{ effectivePrice }}
+    {{ product.price }}
     {% if effectivePrice != product.price %}
         <br><strong>Prix Remisé :</strong> {{ effectivePrice }}
     {% endif %}
