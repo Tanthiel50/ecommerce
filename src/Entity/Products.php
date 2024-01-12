@@ -39,6 +39,7 @@ class Products
     private Collection $reviews;
 
     #[ORM\ManyToOne(inversedBy: 'id_product')]
+    #[ORM\JoinColumn(name: "sales_id", referencedColumnName: "id", onDelete: "SET NULL")]
     private ?Sales $sales = null;
 
     #[ORM\ManyToOne(inversedBy: 'product_id')]
@@ -52,6 +53,23 @@ class Products
         $this->reviews = new ArrayCollection();
         $this->image = new ArrayCollection();
     }
+
+    public function getEffectivePrice(): float
+{
+    $price = (float) $this->price;
+    $sales = $this->getSales();
+    $currentDate = new \DateTime();
+
+    if ($sales && $sales->getDateBegin() && $sales->getDateEnd() &&
+        $sales->getDateBegin() <= $currentDate && $sales->getDateEnd() >= $currentDate) {
+        $discount = (float) $sales->getDiscount();
+
+        // Applique la remise seulement si elle est valide
+        return $price * (1 - $discount / 100);
+    }
+
+    return $price;
+}
 
     public function getId(): ?int
     {
@@ -151,7 +169,6 @@ class Products
     public function removeReview(Reviews $review): static
     {
         if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
             if ($review->getIdProduct() === $this) {
                 $review->setIdProduct(null);
             }

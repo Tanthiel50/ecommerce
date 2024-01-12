@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Sales{% endblock %}
+
+{% block body %}
+    <h1>Create new Sales</h1>
+
+    {{ form_start(form) }}
+
+    {# Autres champs du formulaire #}
+    {{ form_row(form.message) }}
+    {{ form_row(form.discount) }}
+    {{ form_row(form.date_begin) }}
+    {{ form_row(form.date_end) }}
+
+    {# Champ pour sélectionner les produits #}
+    <div class="form-group">
+        <label>Produits à remiser :</label>
+        {{ form_widget(form.id_product) }}
+    </div>
+
+    <button type="submit">Sauvegarder</button>
+
+{{ form_end(form) }}
+
+    <a href="{{ path('app_sales_index') }}">back to list</a>
+{% endblock %}

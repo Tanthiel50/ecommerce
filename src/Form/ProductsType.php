@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Sales;
 use App\Entity\Products;
 use App\Form\ImagesType; 
 use App\Entity\Categories;
@@ -24,7 +25,10 @@ class ProductsType extends AbstractType
             ->add('stock')
             ->add('color')
             ->add('size')
-            ->add('sales')
+            ->add('sales', EntityType::class, [
+                'class' => Sales::class,
+                'choice_label' => 'message',
+            ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
                 'choice_label' => 'title', 

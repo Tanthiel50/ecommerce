@@ -26,7 +26,13 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
+                <td>
+    {% set effectivePrice = product.getEffectivePrice() %}
+    {{ effectivePrice }}
+    {% if effectivePrice != product.price %}
+        <br><strong>Prix Remisé :</strong> {{ effectivePrice }}
+    {% endif %}
+</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.color }}</td>
                 <td>{{ product.size }}</td>
