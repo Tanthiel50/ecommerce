@@ -1,0 +1,13 @@
+{# templates/products/display.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Product: {{ product.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+    <p>{{ product.description }}</p>
+    <a href="#">Ajouter au panier</a>
+    
+    {# Affichez d'autres détails du produit ici #}
+{% endblock %}

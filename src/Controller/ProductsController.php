@@ -83,6 +83,8 @@ class ProductsController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}/edit', name: 'app_products_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Products $product, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -169,5 +171,17 @@ class ProductsController extends AbstractController
         }
     
         return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/display/{id}', name: 'app_products_display', methods: ['GET'])]
+    public function display(Products $product): Response
+    {
+        // Assurez-vous d'ajouter la logique nécessaire pour récupérer les informations du produit
+        // par exemple, récupérer des images ou d'autres détails liés au produit
+
+        return $this->render('products/display.html.twig', [
+            'product' => $product,
+            // 'images' => $images, // Ajoutez d'autres variables si nécessaire
+        ]);
     }
 }
