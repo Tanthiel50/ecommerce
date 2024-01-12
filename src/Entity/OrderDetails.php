@@ -19,8 +19,9 @@ class OrderDetails
     #[ORM\ManyToOne(inversedBy: 'orderDetails')]
     private ?Orders $id_order = null;
 
-    #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'orderDetails')]
-    private Collection $id_product;
+    #[ORM\ManyToOne(targetEntity: Products::class, inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(name: "product_id", referencedColumnName: "id")]
+    private ?Products $product = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $quantity = null;
@@ -30,7 +31,19 @@ class OrderDetails
 
     public function __construct()
     {
-        $this->id_product = new ArrayCollection();
+        
+    }
+
+    public function getProduct(): ?Products
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Products $product): self
+    {
+        $this->product = $product;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -53,26 +66,7 @@ class OrderDetails
     /**
      * @return Collection<int, Products>
      */
-    public function getIdProduct(): Collection
-    {
-        return $this->id_product;
-    }
 
-    public function addIdProduct(Products $idProduct): static
-    {
-        if (!$this->id_product->contains($idProduct)) {
-            $this->id_product->add($idProduct);
-        }
-
-        return $this;
-    }
-
-    public function removeIdProduct(Products $idProduct): static
-    {
-        $this->id_product->removeElement($idProduct);
-
-        return $this;
-    }
 
     public function getQuantity(): ?float
     {

@@ -125,11 +125,11 @@ class ProductsController extends AbstractController
                     $entityManager->remove($image);
                     $imagePath = $this->getParameter('products_directory') . '/' . $image->getPath();
                     if (file_exists($imagePath)) {
-                        unlink($imagePath); 
+                        unlink($imagePath);
                     }
                 }
             }
-        
+
             $entityManager->flush();
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -144,11 +144,11 @@ class ProductsController extends AbstractController
                 }
                 $imagePath = $this->getParameter('products_directory') . '/' . $imageToDelete->getPath();
                 if (file_exists($imagePath)) {
-                    unlink($imagePath); 
+                    unlink($imagePath);
                 }
             }
         }
-        
+
         return $this->renderForm('products/edit.html.twig', [
             'product' => $product,
             'form' => $form,
@@ -158,20 +158,20 @@ class ProductsController extends AbstractController
     #[Route('/{id}', name: 'app_products_delete', methods: ['POST'])]
     public function delete(Request $request, Products $product, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             // Supprimez chaque image liée au produit
             foreach ($product->getImage() as $image) {
                 $imagePath = $this->getParameter('products_directory') . '/' . $image->getPath();
                 if (file_exists($imagePath)) {
-                    unlink($imagePath); 
+                    unlink($imagePath);
                 }
             }
-    
+
             // Supprimez le produit
             $entityManager->remove($product);
             $entityManager->flush();
         }
-    
+
         return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -186,37 +186,4 @@ class ProductsController extends AbstractController
             // 'images' => $images, // Ajoutez d'autres variables si nécessaire
         ]);
     }
-
-    #[Route('/add-to-cart/{id}', name: 'add_to_cart')]
-public function addToCart(Request $request, Products $product, EntityManagerInterface $entityManager): Response
-{
-    $user = $this->getUser(); // Récupérer l'utilisateur actuel
-    if (!$user) {
-        // Rediriger l'utilisateur non connecté ou gérer différemment
-    }
-
-    // Vérifier si une commande "vide" existe déjà pour cet utilisateur
-    $order = $entityManager->getRepository(Orders::class)->findOneBy(['id_userOrder' => $user, 'statut' => 'vide']);
-
-    if (!$order) {
-        $order = new Orders();
-        $order->setIdUserOrder($user);
-        $order->setStatut('vide');
-        $order->setDate(new \DateTime()); // Définir la date actuelle
-        $entityManager->persist($order);
-    }
-
-    // Créer ou mettre à jour les détails de la commande
-    $orderDetail = new OrderDetails();
-    $orderDetail->setIdOrder($order);
-    $orderDetail->addIdProduct($product);
-    $orderDetail->setQuantity(1); // Exemple avec une quantité fixe
-    $orderDetail->setPrice($product->getPrice());
-    $entityManager->persist($orderDetail);
-
-    $entityManager->flush();
-
-    // Rediriger vers le panier ou la page produit
-    return $this->redirectToRoute('display_cart');
-}
 }
