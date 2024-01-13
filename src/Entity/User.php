@@ -53,9 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_user', targetEntity: Reviews::class)]
-    private Collection $rating;
-
     #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
@@ -65,7 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = [self::ROLE_USER];
-        $this->rating = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->orders = new ArrayCollection();
     }
@@ -221,36 +217,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reviews>
-     */
-    public function getRating(): Collection
-    {
-        return $this->rating;
-    }
-
-    public function addRating(Reviews $rating): static
-    {
-        if (!$this->rating->contains($rating)) {
-            $this->rating->add($rating);
-            $rating->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRating(Reviews $rating): static
-    {
-        if ($this->rating->removeElement($rating)) {
-            // set the owning side to null (unless already changed)
-            if ($rating->getIdUser() === $this) {
-                $rating->setIdUser(null);
-            }
-        }
 
         return $this;
     }

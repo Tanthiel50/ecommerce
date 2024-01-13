@@ -22,7 +22,7 @@ class Categories
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: products::class, cascade: ['remove'])]
+    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Products::class, cascade: ['remove'])]
     private Collection $product_id;
 
     public function __construct()
@@ -67,7 +67,7 @@ class Categories
         return $this->product_id;
     }
 
-    public function addProductId(products $productId): static
+    public function addProductId(Products $productId): static
     {
         if (!$this->product_id->contains($productId)) {
             $this->product_id->add($productId);
@@ -77,7 +77,7 @@ class Categories
         return $this;
     }
 
-    public function removeProductId(products $productId): static
+    public function removeProductId(Products $productId): static
     {
         if ($this->product_id->removeElement($productId)) {
             // set the owning side to null (unless already changed)

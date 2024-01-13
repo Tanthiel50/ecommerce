@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\Deliveries;
-use App\Repository\OrderDetailsRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

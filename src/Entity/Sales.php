@@ -28,7 +28,7 @@ class Sales
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_end = null;
 
-    #[ORM\OneToMany(mappedBy: 'sales', targetEntity: products::class)]
+    #[ORM\OneToMany(mappedBy: 'sales', targetEntity: Products::class)]
     private Collection $id_product;
 
     public function __construct()
@@ -97,7 +97,7 @@ class Sales
         return $this->id_product;
     }
 
-    public function addIdProduct(products $idProduct): static
+    public function addIdProduct(Products $idProduct): static
     {
         if (!$this->id_product->contains($idProduct)) {
             $this->id_product->add($idProduct);
@@ -107,7 +107,7 @@ class Sales
         return $this;
     }
 
-    public function removeIdProduct(products $idProduct): static
+    public function removeIdProduct(Products $idProduct): static
     {
         if ($this->id_product->removeElement($idProduct)) {
             // set the owning side to null (unless already changed)

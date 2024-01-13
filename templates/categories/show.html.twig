@@ -3,7 +3,7 @@
 {% block title %}Categories{% endblock %}
 
 {% block body %}
-    <h1>Categories</h1>
+    <h1>{{ category.title }}</h1>
 
     <table class="table">
         <tbody>
@@ -12,19 +12,19 @@
                 <td>{{ category.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>Nom</th>
                 <td>{{ category.title }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Description</th>
                 <td>{{ category.content }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_categories_index') }}">back to list</a>
+    <a href="{{ path('app_categories_index') }}" class="btn btn-watch">Retour a la liste de gammes</a>
 
-    <a href="{{ path('app_categories_edit', {'id': category.id}) }}">edit</a>
+    <a href="{{ path('app_categories_edit', {'id': category.id}) }}" class="btn btn-edit">Editer</a>
 
     {{ include('categories/_delete_form.html.twig') }}
 {% endblock %}

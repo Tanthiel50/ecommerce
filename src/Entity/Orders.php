@@ -28,13 +28,6 @@ class Orders
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?User $id_userOrder = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_order', targetEntity: OrderDetails::class)]
-    private Collection $orderDetails;
-
-    public function __construct()
-    {
-        $this->orderDetails = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -85,36 +78,6 @@ class Orders
     public function setIdUserOrder(?User $id_userOrder): static
     {
         $this->id_userOrder = $id_userOrder;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OrderDetails>
-     */
-    public function getOrderDetails(): Collection
-    {
-        return $this->orderDetails;
-    }
-
-    public function addOrderDetail(OrderDetails $orderDetail): static
-    {
-        if (!$this->orderDetails->contains($orderDetail)) {
-            $this->orderDetails->add($orderDetail);
-            $orderDetail->setIdOrder($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderDetail(OrderDetails $orderDetail): static
-    {
-        if ($this->orderDetails->removeElement($orderDetail)) {
-            // set the owning side to null (unless already changed)
-            if ($orderDetail->getIdOrder() === $this) {
-                $orderDetail->setIdOrder(null);
-            }
-        }
 
         return $this;
     }

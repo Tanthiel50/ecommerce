@@ -166,7 +166,8 @@ class ProductsController extends AbstractController
                     unlink($imagePath);
                 }
             }
-
+            
+            // dd($product);
             // Supprimez le produit
             $entityManager->remove($product);
             $entityManager->flush();

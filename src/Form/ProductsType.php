@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductsType extends AbstractType
@@ -19,18 +20,20 @@ class ProductsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('name', null, [
+                'label' => 'Nom du produit',
+            ])
             ->add('description')
-            ->add('price')
+            ->add('price', NumberType::class, [
+                'label' => 'Prix',
+            ])
             ->add('stock')
-            ->add('color')
-            ->add('size')
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
                 'choice_label' => 'title', 
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image produit',
+                'label' => 'Images produit',
                 'multiple' => true,
                 'mapped' => false, 
                 'required' => false,

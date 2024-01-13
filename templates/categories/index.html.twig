@@ -1,37 +1,35 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Categories index{% endblock %}
+{% block title %}Gamme de produits{% endblock %}
 
 {% block body %}
-    <h1>Categories index</h1>
+    <h1 class="text-center">Gamme de produits</h1>
+    <a class="button2" href="{{ path('app_categories_new') }}">Créer nouvelle gamme</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>actions</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.title }}</td>
-                <td>{{ category.content }}</td>
-                <td>
-                    <a href="{{ path('app_categories_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}">edit</a>
+                <td class="text-center">{{ category.title }}</td>
+                <td class="text-center">{{ category.content }}</td>
+                <td class="text-center">
+                    <a href="{{ path('app_categories_show', {'id': category.id}) }}" class="btn btn-watch btn-md mr-3">Voir</a>
+                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}" class="btn btn-edit btn-md">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Pas de gammes trouvés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_categories_new') }}">Create new</a>
 {% endblock %}

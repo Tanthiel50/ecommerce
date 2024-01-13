@@ -5,21 +5,22 @@
 {% block body %}
     <h1>Editer {{ product.name }}</h1>
 
-    {% for image in product.image %}
-    <div>
-        <img src="{{ asset('uploads/products/' ~ image.path) }}" alt="{{ image.alt }}">
-        <form action="{{ path('app_products_edit', {'id': product.id}) }}" method="POST">
-    <input type="hidden" name="image_to_delete" value="{{ image.id }}">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete_image' ~ image.id) }}">
-    <button type="submit">Supprimer</button>
-</form>
-
+    <div style="display: flex; flex-wrap: wrap;">
+        {% for image in product.image %}
+            <div style="margin-right: 10px; text-align: center;">
+                <img src="{{ asset('uploads/products/' ~ image.path) }}" alt="{{ image.alt }}" style="max-width: 150px; height: auto; margin-bottom: 5px;">
+                <form action="{{ path('app_products_edit', {'id': product.id}) }}" method="POST">
+                    <input type="hidden" name="image_to_delete" value="{{ image.id }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_image' ~ image.id) }}">
+                    <button type="submit" class="btn btn-delete">Supprimer</button>
+                </form>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
 
     {{ include('products/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
 
-    <a href="{{ path('app_products_index') }}">Retour a la liste de produit</a>
+    <a href="{{ path('app_products_index') }}" class="btn btn-edit">Retour a la liste de produit</a>
 
     {{ include('products/_delete_form.html.twig') }}
 {% endblock %}

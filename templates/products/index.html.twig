@@ -10,40 +10,34 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Stock</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>actions</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Prix</th>
+                <th class="text-center">Stock</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>
+                <td class="text-center">{{ product.name }}</td>
+                <td class="text-center">{{ product.description }}</td>
+                <td class="text-center">
     {% set effectivePrice = product.getEffectivePrice() %}
-    {{ product.price }}
+    {{ product.price }} €
     {% if effectivePrice != product.price %}
-        <br><strong>Prix Remisé :</strong> {{ effectivePrice }}
+        <br><strong>Prix Remisé :</strong> {{ effectivePrice }} €
     {% endif %}
 </td>
-                <td>{{ product.stock }}</td>
-                <td>{{ product.color }}</td>
-                <td>{{ product.size }}</td>
-                <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">Voir</a>
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">Editer</a>
+                <td class="text-center">{{ product.stock }}</td>
+                <td class="text-center">
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}" class="btn btn-watch btn-md mr-3">Voir</a>
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}" class="btn btn-edit btn-md">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas de produits trouvés</td>
             </tr>
         {% endfor %}
         </tbody>

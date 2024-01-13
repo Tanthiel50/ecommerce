@@ -35,9 +35,6 @@ class Products
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $size = null;
 
-    #[ORM\OneToMany(mappedBy: 'id_product', targetEntity: Reviews::class)]
-    private Collection $reviews;
-
     #[ORM\ManyToOne(inversedBy: 'id_product')]
     #[ORM\JoinColumn(name: "sales_id", referencedColumnName: "id", onDelete: "SET NULL")]
     private ?Sales $sales = null;
@@ -48,14 +45,10 @@ class Products
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     private Collection $image;
 
-    #[ORM\ManyToMany(targetEntity: OrderDetails::class, mappedBy: 'id_product')]
-    private Collection $orderDetails;
 
     public function __construct()
     {
-        $this->reviews = new ArrayCollection();
         $this->image = new ArrayCollection();
-        $this->orderDetails = new ArrayCollection();
     }
 
     public function getEffectivePrice(): float
@@ -152,35 +145,6 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reviews>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Reviews $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setIdProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Reviews $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            if ($review->getIdProduct() === $this) {
-                $review->setIdProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSales(): ?Sales
     {
         return $this->sales;
@@ -235,30 +199,4 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection<int, OrderDetails>
-     */
-    public function getOrderDetails(): Collection
-    {
-        return $this->orderDetails;
-    }
-
-    public function addOrderDetail(OrderDetails $orderDetail): static
-    {
-        if (!$this->orderDetails->contains($orderDetail)) {
-            $this->orderDetails->add($orderDetail);
-            $orderDetail->addIdProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderDetail(OrderDetails $orderDetail): static
-    {
-        if ($this->orderDetails->removeElement($orderDetail)) {
-            $orderDetail->removeIdProduct($this);
-        }
-
-        return $this;
-    }
 }

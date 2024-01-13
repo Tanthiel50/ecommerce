@@ -54,12 +54,13 @@
   border-radius: 4px;
   display: block;
   text-decoration: none;
-}
 
-.button2:hover {
-  background-position: right center;
-  color: #fff;
-  text-decoration: none;
+  &:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
 }
 
 .card {
@@ -71,16 +72,37 @@
   border: none;
 }
 
-.warning {
+.btn-edit {
   background-color: var(--warning-color);
   padding: 10px;
   color: white;
+
+  &:hover {
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+  }
 }
 
-.success {
+.btn-watch {
   background-color: var(--success-color);
   padding: 10px;
   color: white;
+  
+  &:hover {
+    border-color: var(--success-color);
+    color: var(--success-color);
+  }
+}
+
+.btn-delete {
+  background-color: var(--color-secondary);
+  padding: 10px;
+  color: white;
+  
+  &:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+  }
 }
 
 .discountPercent {
@@ -94,19 +116,21 @@
 }
 
 .admin {
-  border: 1px solid #4e4b66;
+  background-color: var(--color-background);
   margin-top: 50px;
+  padding: 20px;
 }
 
 .list-group-item{
-  background: #db4444;
+  border-color: var(--color-secondary);
   margin-bottom: 5px;
-  color: white;
-}
+  color: var(--color-secondary);
 
-.list-group-item:hover{
-  background: #f4b740;
-  color: white;
+  &:hover{
+    background: var(--color-secondary);
+    color: white;
+    font-weight: bold;
+  }
 }
 
 .hero-banner {
