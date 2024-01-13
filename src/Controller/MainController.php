@@ -19,11 +19,12 @@ class MainController extends AbstractController
     public function index(ProductsRepository $productsRepository, CategoriesRepository $categoriesRepository): Response
     {
         $categoriesRepository = $categoriesRepository->findAll();
-        $productsRepository = $productsRepository->findLatestProducts(4);
-
+        $latestProducts = $productsRepository->findLatestProducts(4); 
+        $productsOnSale = $productsRepository->findProductsOnSale(); 
         return $this->render('main/index.html.twig', [
-            'products' => $productsRepository,
+            'products' => $latestProducts,
             'categories' => $categoriesRepository,
+            'productsOnSale' => $productsOnSale,
         ]);
     }
 }

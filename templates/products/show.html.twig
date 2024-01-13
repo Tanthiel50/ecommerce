@@ -33,7 +33,7 @@
 				<td>{{ product.categories.title }}</td>
 			</tr>
 			{% for image in product.image %}
-				<img src="{{ asset('uploads/products/' ~ image.path) }}" alt="{{ image.alt }}">
+				<img src="{{ asset('uploads/products/' ~ image.path) }}" alt="{{ image.alt }}" style="max-width: 150px; height: auto; margin-bottom: 5px;">
 			{% endfor %}
 		</tbody>
 	</table>

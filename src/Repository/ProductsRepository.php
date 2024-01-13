@@ -30,6 +30,22 @@ class ProductsRepository extends ServiceEntityRepository
         ->getResult();
 }
 
+// Dans ProductsRepository.php
+
+public function findProductsOnSale()
+{
+    $currentDate = new \DateTime();
+
+    return $this->createQueryBuilder('p')
+        ->innerJoin('p.sales', 's')
+        ->where('s.date_begin <= :currentDate')
+        ->andWhere('s.date_end >= :currentDate')
+        ->setParameter('currentDate', $currentDate)
+        ->getQuery()
+        ->getResult();
+}
+
+
 //    /**
 //     * @return Products[] Returns an array of Products objects
 //     */

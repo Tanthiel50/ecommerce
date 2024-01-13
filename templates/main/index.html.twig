@@ -18,29 +18,38 @@
 </div>
     
     <!-- First Row of Cards with Images -->
-    <h2>Les derniers arrivés</h2>
+    <h2 class="text-center text-white">Les derniers arrivés</h2>
     <div class="row mb-4">
     {% for product in products %}
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">{{product.name}}</h5>
+    <div class="col-md-3">
+        <a href="{{ path('app_products_display', {'id': product.id}) }}">
+            <div class="card product-card">
+                {% if product.image|length > 0 %}
+                    {% set firstImage = product.image.first %}
+                    <img class="card-img product-image" src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ firstImage.alt }}">
+                {% else %}
+                    <img class="card-img product-image" src="https://via.placeholder.com/300.png/09f/fff" alt="Default Image">
+                {% endif %}
+                <div class="card-img-overlay product-info">
+                    <h5 class="card-title text-white">{{ product.name }}</h5>
+                    <p class="product-category">{{ product.categories.title }}</p>
+                    <p class="product-price">{{ product.price }} €</p>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+        </a>
+    </div>
+{% endfor %}
     </div>
     
     <!-- Third Row of Individual Colored Cards -->
     <div class="row">
-    <h2 class="text-center">Les catégories</h2>
+    <h2 class="text-center text-white">Les catégories</h2>
     {% for category in categories %}
-        <div class="col-md-3 mb-4">
-            <div class="card text-center" style="background-color: var(--error-color);">
-                <div class="card-body">
-                    <h5 class="card-title text-white">{{category.title}}</h5>
-                    <a href="#" class="btn btn-outline-light">Voir</a>
+        <div class="col-md-3 mb-4 last-arrived">
+            <div class="card text-center">
+                <div class="card-body border border-warning">
+                    <h5 class="card-title">{{category.title}}</h5>
+                    <a href="#" class="btn btn-edit">Voir</a>
                 </div>
             </div>
         </div>
@@ -48,40 +57,28 @@
     </div>
 
         <!-- First Row of Cards with Images -->
-    <h2>Les promos</h2>
+    <h2 class="text-center text-white">Les promos</h2>
     <div class="row mb-4">
+    {% for product in productsOnSale %}
         <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
+            <a href="{{ path('app_products_display', {'id': product.id}) }}">
+                <div class="card product-card">
+                    {% if product.image|length > 0 %}
+                        {% set firstImage = product.image.first %}
+                        <img class="card-img product-image" src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ firstImage.alt }}">
+                    {% else %}
+                        <img class="card-img product-image" src="https://via.placeholder.com/300.png/09f/fff" alt="Default Image">
+                    {% endif %}
+                    <div class="card-img-overlay product-info">
+                        <h5 class="card-title text-white">{{ product.name }}</h5>
+                        <p class="product-category">{{ product.categories.title }}</p>
+                        <p class="product-price">Prix original : <del>{{ product.price }} €</del></p>
+                        <p class="product-price">Prix remisé : {{ product.getEffectivePrice() }} €</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
+    {% endfor %}
     </div>
 </div>
 
