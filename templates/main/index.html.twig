@@ -20,76 +20,31 @@
     <!-- First Row of Cards with Images -->
     <h2>Les derniers arrivés</h2>
     <div class="row mb-4">
+    {% for product in products %}
         <div class="col-md-3">
             <div class="card">
                 <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
                 <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
+                    <h5 class="card-title text-white">{{product.name}}</h5>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     
     <!-- Third Row of Individual Colored Cards -->
     <div class="row">
-    <h2>Les catégories</h2>
+    <h2 class="text-center">Les catégories</h2>
+    {% for category in categories %}
         <div class="col-md-3 mb-4">
             <div class="card text-center" style="background-color: var(--error-color);">
                 <div class="card-body">
-                    <h5 class="card-title text-white">Titre de la carte</h5>
-                    <a href="#" class="btn btn-outline-light">Call to Action</a>
+                    <h5 class="card-title text-white">{{category.title}}</h5>
+                    <a href="#" class="btn btn-outline-light">Voir</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-center" style="background-color: var(--error-color);">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Titre de la carte</h5>
-                    <a href="#" class="btn btn-outline-light">Call to Action</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-center" style="background-color: var(--error-color);">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Titre de la carte</h5>
-                    <a href="#" class="btn btn-outline-light">Call to Action</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card text-center" style="background-color: var(--error-color);">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Titre de la carte</h5>
-                    <a href="#" class="btn btn-outline-light">Call to Action</a>
-                </div>
-            </div>
-        </div>
-        <!-- Repeat for the other three colored cards -->
+        {% endfor %}
     </div>
 
         <!-- First Row of Cards with Images -->

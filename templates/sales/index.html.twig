@@ -1,41 +1,40 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Sales index{% endblock %}
+{% block title %}Liste des promotions{% endblock %}
 
 {% block body %}
-    <h1>Sales index</h1>
+    <h1 class="text-center">Liste des promotions</h1>
+    <a href="{{ path('app_sales_new') }}" class="button2">Créer nouvelle promo</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Message</th>
-                <th>Discount</th>
-                <th>Date_begin</th>
-                <th>Date_end</th>
-                <th>actions</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Remise %</th>
+                <th class="text-center">Date de debut</th>
+                <th class="text-center">Date de fin</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for sale in sales %}
             <tr>
-                <td>{{ sale.id }}</td>
-                <td>{{ sale.message }}</td>
-                <td>{{ sale.discount }}</td>
-                <td>{{ sale.dateBegin ? sale.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sale.dateEnd ? sale.dateEnd|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_sales_show', {'id': sale.id}) }}">show</a>
-                    <a href="{{ path('app_sales_edit', {'id': sale.id}) }}">edit</a>
+                <td class="text-center">{{ sale.message }}</td>
+                <td class="text-center">{{ sale.discount }} %</td>
+                <td class="text-center">{{ sale.dateBegin ? sale.dateBegin|date('d-m-Y') : '' }}</td>
+                <td class="text-center">{{ sale.dateEnd ? sale.dateEnd|date('d-m-Y') : '' }}</td>
+                <td class="text-center">
+                    <a href="{{ path('app_sales_show', {'id': sale.id}) }}" class="btn btn-watch btn-md mr-3">Voir</a>
+                    <a href="{{ path('app_sales_edit', {'id': sale.id}) }}" class="btn btn-edit btn-md">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Pas de promotions trouvés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_sales_new') }}">Create new</a>
+    
 {% endblock %}

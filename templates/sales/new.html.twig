@@ -1,27 +1,25 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Sales{% endblock %}
+{% block title %}Nouvelle promotion{% endblock %}
 
 {% block body %}
-    <h1>Create new Sales</h1>
+    <h1>Créer une nouvelle promotion</h1>
 
     {{ form_start(form) }}
 
-    {# Autres champs du formulaire #}
     {{ form_row(form.message) }}
     {{ form_row(form.discount) }}
     {{ form_row(form.date_begin) }}
     {{ form_row(form.date_end) }}
 
-    {# Champ pour sélectionner les produits #}
     <div class="form-group">
         <label>Produits à remiser :</label>
         {{ form_widget(form.id_product) }}
     </div>
 
-    <button type="submit">Sauvegarder</button>
+    <button type="submit" class="btn btn-watch mb-3 mt-3">Sauvegarder</button>
 
 {{ form_end(form) }}
 
-    <a href="{{ path('app_sales_index') }}">back to list</a>
+    <a href="{{ path('app_sales_index') }}" class="btn btn-edit">Retour a la liste des promotions</a>
 {% endblock %}

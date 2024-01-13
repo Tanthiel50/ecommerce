@@ -1,9 +1,9 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Sales{% endblock %}
+{% block title %}Promotions{% endblock %}
 
 {% block body %}
-    <h1>Sales</h1>
+    <h1>Promotions</h1>
 
     <table class="table">
         <tbody>
@@ -12,27 +12,27 @@
                 <td>{{ sale.id }}</td>
             </tr>
             <tr>
-                <th>Message</th>
+                <th>Titre</th>
                 <td>{{ sale.message }}</td>
             </tr>
             <tr>
-                <th>Discount</th>
-                <td>{{ sale.discount }}</td>
+                <th>Remise %</th>
+                <td>{{ sale.discount }} %</td>
             </tr>
             <tr>
-                <th>Date_begin</th>
-                <td>{{ sale.dateBegin ? sale.dateBegin|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de debut</th>
+                <td>{{ sale.dateBegin ? sale.dateBegin|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
-                <th>Date_end</th>
-                <td>{{ sale.dateEnd ? sale.dateEnd|date('Y-m-d') : '' }}</td>
+                <th>Date de fin</th>
+                <td>{{ sale.dateEnd ? sale.dateEnd|date('d-m-Y') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_sales_index') }}">back to list</a>
+    <a href="{{ path('app_sales_index') }}" class="btn btn-watch">Retour à la liste des promotions</a>
 
-    <a href="{{ path('app_sales_edit', {'id': sale.id}) }}">edit</a>
+    <a href="{{ path('app_sales_edit', {'id': sale.id}) }}" class="btn btn-edit">Editer la promotion</a>
 
     {{ include('sales/_delete_form.html.twig') }}
 {% endblock %}

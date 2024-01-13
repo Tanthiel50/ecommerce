@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 $builder->add('new_password', PasswordType::class, [
                     'mapped' => false,
                     'required' => false,
-                    'label' => 'New Password (leave blank if not changing)',
+                    'label' => 'Nouveau mot de passe (laisser vide si inchangé)',
                 ]);
             }
     }

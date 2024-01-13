@@ -1,53 +1,50 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1 class="text-center">Liste des utilisateurs</h1>
+    <a href="{{ path('app_user_new') }}" class="button2">Créer un nouvel utilisateur</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Pseudo</th>
-                <th>Adress</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Roles</th>
+                <th class="text-center">Prénom</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Pseudo</th>
+                <th class="text-center">Adresse</th>
+                <th class="text-center">CP</th>
+                <th class="text-center">Ville</th>
+                <th class="text-center">Date création</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.pseudo }}</td>
-                <td>{{ user.adress }}</td>
-                <td>{{ user.zipcode }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="text-center">{{ user.email }}</td>
+                <td class="text-center">{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td class="text-center">{{ user.firstName }}</td>
+                <td class="text-center">{{ user.lastName }}</td>
+                <td class="text-center">{{ user.pseudo }}</td>
+                <td class="text-center">{{ user.adress }}</td>
+                <td class="text-center">{{ user.zipcode }}</td>
+                <td class="text-center">{{ user.city }}</td>
+                <td class="text-center">{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-watch btn-md mr-3">Voir</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-edit btn-md">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">Pas d'utilisateurs trouvés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    
 {% endblock %}
