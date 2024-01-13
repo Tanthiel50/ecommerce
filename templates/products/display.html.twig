@@ -1,14 +1,80 @@
-{# templates/products/display.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Product: {{ product.name }}{% endblock %}
+{% block title %}Nom de l'article - Boutique en ligne{% endblock %}
 
 {% block body %}
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
-    <a href="{{ path('add_to_cart', {'id': product.id}) }}">Ajouter au panier</a>
+<div class="product-display">
+    <div class="container py-5">
+        <div class="row mb-3">
+            <!-- Breadcrumb and Return Link -->
+            <div class="col-6">
+                <a href="#" class="d-flex align-items-center">
+                    <i class="bi bi-arrow-left"></i> <span class="ml-2">Retour vers la gamme</span>
+                </a>
+            </div>
+            <div class="col-6 text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-end">
+                        <li class="breadcrumb-item"><a href="#">Gamme</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Produit</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Product Image -->
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/600x400" alt="Nom de l'article" class="img-fluid">
+            </div>
+            <!-- Product Details and Actions -->
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h1 class="product-title mb-3">Nom de l'article</h1>
+                    <p class="product-description">Description détaillée du produit.</p>
+                    <p class="product-price mb-4">Prix: <strong>99,99 €</strong></p>
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-lg mr-3">Ajouter au panier</button>
+                        <button class="btn btn-outline-secondary btn-lg">Ajouter aux favoris</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<h2>Produits similaires</h2>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 
-    
-    {# Affichez d'autres détails du produit ici #}
 {% endblock %}

@@ -3,27 +3,131 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-<style>
-    /* Votre style ici... */
-</style>
-
-<div class="example-wrapper">
-    <h1> ✅</h1>
-
-    {# Affichage des articles #}
-    <div>
-        {% for product in products %}
+<div class="container mt-4">
+<!-- Hero Section -->
+<div class="row mb-4">
+    <div class="col-12 p-0">
+        <div class="hero-banner d-flex justify-content-center align-items-center text-center" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg'); height: 50vh;">
             <div>
-                <h2>{{ product.name }}</h2>
-                <p>{{ product.description }}</p>
-                <a href="{{ path('app_products_display', {'id': product.id}) }}">Voir les détails du produit</a>
-                {# Autres détails de l'article... #}
+                <h1>Titre de l'image</h1>
+                <p>Description de l'image</p>
+                <a href="#" class="btn btn-primary">Call to Action</a>
             </div>
-        {% else %}
-            <p>No articles found.</p>
-        {% endfor %}
+        </div>
+    </div>
+</div>
+    
+    <!-- First Row of Cards with Images -->
+    <h2>Les derniers arrivés</h2>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Third Row of Individual Colored Cards -->
+    <div class="row">
+    <h2>Les catégories</h2>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center" style="background-color: var(--error-color);">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Titre de la carte</h5>
+                    <a href="#" class="btn btn-outline-light">Call to Action</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center" style="background-color: var(--error-color);">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Titre de la carte</h5>
+                    <a href="#" class="btn btn-outline-light">Call to Action</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center" style="background-color: var(--error-color);">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Titre de la carte</h5>
+                    <a href="#" class="btn btn-outline-light">Call to Action</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card text-center" style="background-color: var(--error-color);">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Titre de la carte</h5>
+                    <a href="#" class="btn btn-outline-light">Call to Action</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for the other three colored cards -->
     </div>
 
-    {# Autres éléments de votre page... #}
+        <!-- First Row of Cards with Images -->
+    <h2>Les promos</h2>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title text-white">Titre de l'article</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
