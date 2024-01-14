@@ -17,8 +17,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/products')]
+#[IsGranted('ROLE_ADMIN')]
 class ProductsController extends AbstractController
 {
     #[Route('/', name: 'app_products_index', methods: ['GET'])]
@@ -30,6 +32,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_products_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         $product = new Products();
@@ -74,6 +77,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_products_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(Products $product): Response
     {
         $categories = $product->getCategories();
@@ -89,6 +93,7 @@ class ProductsController extends AbstractController
 
 
     #[Route('/{id}/edit', name: 'app_products_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Products $product, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ProductsType::class, $product);
@@ -157,6 +162,7 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_products_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Products $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
@@ -168,8 +174,6 @@ class ProductsController extends AbstractController
                 }
             }
 
-            // dd($product);
-            // Supprimez le produit
             $entityManager->remove($product);
             $entityManager->flush();
         }

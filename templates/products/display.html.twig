@@ -7,18 +7,18 @@
 				class="row mb-3">
 				<!-- Breadcrumb and Return Link -->
 				<div class="col-6">
-					<a href="{{ path('home') }}" class="d-flex align-items-center">
-						<span class="ml-2">Retour</span>
+					<a href="{{ path('home') }}" class="d-flex align-items-center btn ">
+						<span class="ml-2 btn-glass">Retour</span>
 					</a>
 				</div>
 				<div class="col-6 text-right">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb justify-content-end">
 							<li class="breadcrumb-item">
-								<a href="{{ path('home') }}">Accueil /</a>
+								<a href="{{ path('home') }}" class="text-white">Accueil /</a>
 							</li>
 							<li class="breadcrumb-item">
-								<a href="{{ path('app_products_category', {'id': product.categories.id}) }}">{{ product.categories.title }}
+								<a class="text-white" href="{{ path('app_products_category', {'id': product.categories.id}) }}">{{ product.categories.title }}
 									/</a>
 							</li>
 							<li class="breadcrumb-item active text-white" aria-current="page">{{ product.name }}</li>

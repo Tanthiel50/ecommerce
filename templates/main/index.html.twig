@@ -7,11 +7,10 @@
 <!-- Hero Section -->
 <div class="row mb-4">
     <div class="col-12 p-0">
-        <div class="hero-banner d-flex justify-content-center align-items-center text-center" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg'); height: 50vh;">
+        <div class="hero-banner d-flex justify-content-center align-items-center text-center ">
             <div>
-                <h1>Titre de l'image</h1>
-                <p>Description de l'image</p>
-                <a href="#" class="btn btn-primary">Call to Action</a>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+                <p class="p-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
     </div>
@@ -46,7 +45,7 @@
     <h2 class="text-center text-white">Les catégories</h2>
     {% for category in categories %}
         <div class="col-md-3 mb-4 last-arrived">
-            <a href="{{ path('app_products_category', {'id': category.id}) }}" class="btn button2">{{category.title}}</a>
+            <a href="{{ path('app_products_category', {'id': category.id}) }}" class="btn btn-glass">{{category.title}}</a>
         </div>
         {% endfor %}
     </div>

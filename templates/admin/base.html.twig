@@ -14,7 +14,6 @@
 	</head>
 
 	<body>	
-		{{ render(controller('App\\Controller\\GlobalController::promotion')) }}
 		<!-- Navbar -->
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-body-tertiary ">
@@ -30,7 +29,7 @@
 				<div
 					class="collapse navbar-collapse  " id="navbarSupportedContent">
 					<!-- Navbar brand -->
-					<a class="navbar-brand mt-2 mt-lg-0" href="#">
+										<a class="navbar-brand mt-2 mt-lg-0" href="#">
 						<img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15" alt="MDB Logo" loading="lazy"/>
 					</a>
 					<!-- Left links -->
@@ -38,12 +37,11 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path('home') }}">Accueil</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 1</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 2</a>
-						</li>
+						{% for category in categories %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_products_category', {'id': category.id}) }}">{{category.title}}</a>
+							</li>
+						{% endfor %}
 					</ul>
 					<!-- Left links -->
 				</div>
@@ -56,38 +54,29 @@
 					<!-- Notifications -->
 					<div class="dropdown">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_register') }}">S'enregistrer</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Panier</a>
-							</li>
-														<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_products_index') }}">Administration</a>
-							</li>
-						</ul>
-						<a data-mdb-dropdown-init class="link-secondary me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-							Mon compte
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-							<li>
-								<a class="dropdown-item" href="">Profil</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Mes commandes</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Administration</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Mes favoris</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Se deconnecter</a>
-							</li>
+							{% if not app.user %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_register') }}">S'enregistrer</a>
+								</li>
+							{% endif %}
+
+							{% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_products_index') }}">Administration</a>
+								</li>
+							{% endif %}
+
+							{% if app.user %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_user_profile', {'id': app.user.id}) }}">Mon profil</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_logout') }}">Deconnexion</a>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</div>

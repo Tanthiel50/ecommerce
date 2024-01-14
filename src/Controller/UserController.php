@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -25,6 +27,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
         $user = new User();
@@ -52,6 +55,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -60,6 +64,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -87,6 +92,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
@@ -103,17 +109,6 @@ class UserController extends AbstractController
 
         if (!$user || $user !== $this->getUser()) {
             throw $this->createNotFoundException('Utilisateur non trouvé ou accès non autorisé.');
-        }
-
-        $form = $this->createForm(UserProfileType::class, $user);
-        $form->handleRequest($request);
-
-        if (!$user) {
-            throw $this->createNotFoundException('Utilisateur non trouvé.');
-        }
-
-        if (!$user) {
-            throw $this->createNotFoundException('Utilisateur non trouvé.');
         }
 
         return $this->render('user/profile.html.twig', [
@@ -133,17 +128,6 @@ class UserController extends AbstractController
         $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
 
-        if (!$user) {
-            throw $this->createNotFoundException('Utilisateur non trouvé.');
-        }
-    
-        if ($user !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Vous n\’êtes pas autorisé à accéder à ce profil.');
-        }
-    
-        return $this->render('user/profile.html.twig', [
-            'user' => $user,
-        ]);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('new_password')->getData()) {
