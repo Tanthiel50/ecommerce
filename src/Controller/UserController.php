@@ -97,9 +97,20 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
     #[Route('/profile/{id}', name: 'app_user_profile')]
-    public function profile(UserRepository $userRepository, int $id): Response
+    public function profile(Request $request,UserRepository $userRepository, int $id): Response
     {
         $user = $userRepository->find($id);
+
+        if (!$user || $user !== $this->getUser()) {
+            throw $this->createNotFoundException('Utilisateur non trouvé ou accès non autorisé.');
+        }
+
+        $form = $this->createForm(UserProfileType::class, $user);
+        $form->handleRequest($request);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        }
 
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur non trouvé.');
@@ -121,6 +132,18 @@ class UserController extends AbstractController
 
         $form = $this->createForm(UserProfileType::class, $user);
         $form->handleRequest($request);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        }
+    
+        if ($user !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous n\’êtes pas autorisé à accéder à ce profil.');
+        }
+    
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+        ]);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('new_password')->getData()) {
