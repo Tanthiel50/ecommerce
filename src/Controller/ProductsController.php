@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Images;
 use App\Entity\Orders;
 use App\Entity\Products;
+use App\Entity\Categories;
 use App\Form\ProductsType;
 use App\Entity\OrderDetails;
 use App\Repository\ProductsRepository;
@@ -166,7 +167,7 @@ class ProductsController extends AbstractController
                     unlink($imagePath);
                 }
             }
-            
+
             // dd($product);
             // Supprimez le produit
             $entityManager->remove($product);
@@ -177,14 +178,32 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/display/{id}', name: 'app_products_display', methods: ['GET'])]
-    public function display(Products $product): Response
+    public function display(Products $product, ProductsRepository $productsRepository): Response
     {
-        // Assurez-vous d'ajouter la logique nécessaire pour récupérer les informations du produit
-        // par exemple, récupérer des images ou d'autres détails liés au produit
+        $similarProducts = $productsRepository->findBy(
+            ['categories' => $product->getCategories()],
+            ['id' => 'DESC'],
+            4
+        );
+
+        $similarProducts = array_filter($similarProducts, function ($similarProduct) use ($product) {
+            return $similarProduct->getId() !== $product->getId();
+        });
 
         return $this->render('products/display.html.twig', [
             'product' => $product,
-            // 'images' => $images, // Ajoutez d'autres variables si nécessaire
+            'similarProducts' => $similarProducts,
+        ]);
+    }
+
+    #[Route('/category/{id}', name: 'app_products_category')]
+    public function category(ProductsRepository $productsRepository, Categories $category): Response
+    {
+        $products = $productsRepository->findBy(['categories' => $category]);
+
+        return $this->render('products/category.html.twig', [
+            'products' => $products,
+            'category' => $category
         ]);
     }
 }

@@ -13,9 +13,7 @@
 	</head>
 
 	<body>
-		<div class="promotion">
-			Nom de la promotion : discount de la promotion sur une selection de produit ! J'en profite !
-		</div>
+		{{ render(controller('App\\Controller\\GlobalController::promotion')) }}
 		<!-- Navbar -->
 		<nav
 			class="navbar navbar-expand-lg navbar-light bg-body-tertiary ">

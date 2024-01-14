@@ -49,7 +49,7 @@
             <div class="card text-center">
                 <div class="card-body border border-warning">
                     <h5 class="card-title">{{category.title}}</h5>
-                    <a href="#" class="btn btn-edit">Voir</a>
+                    <a href="{{ path('app_products_category', {'id': category.id}) }}" class="btn btn-edit">Voir</a>
                 </div>
             </div>
         </div>
@@ -57,12 +57,13 @@
     </div>
 
         <!-- First Row of Cards with Images -->
+        {% if productsOnSale|length > 0 %}
     <h2 class="text-center text-white">Les promos</h2>
     <div class="row mb-4">
     {% for product in productsOnSale %}
         <div class="col-md-3">
             <a href="{{ path('app_products_display', {'id': product.id}) }}">
-                <div class="card product-card">
+                <div class="card product-card mb-4">
                     {% if product.image|length > 0 %}
                         {% set firstImage = product.image.first %}
                         <img class="card-img product-image" src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ firstImage.alt }}">
@@ -80,6 +81,8 @@
         </div>
     {% endfor %}
     </div>
+    {% endif %}
 </div>
+
 
 {% endblock %}

@@ -1,0 +1,44 @@
+{# templates/products/category.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div
+		class="container mt-4">
+		<!-- Hero Section -->
+		<div class="row mb-4">
+			<div class="col-12 p-0">
+				<div class="hero-banner d-flex justify-content-center align-items-center text-center" style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg'); height: 50vh;">
+					<div>
+						<h1>{{ category.title }}</h1>
+						<p>{{ category.content }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- First Row of Cards with Images -->
+		<div class="row mb-4">
+			{% for product in products %}
+				<div class="col-md-3">
+					<a href="{{ path('app_products_display', {'id': product.id}) }}">
+						<div class="card product-card">
+							{% if product.image|length > 0 %}
+								{% set firstImage = product.image.first %}
+								<img class="card-img product-image" src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ firstImage.alt }}">
+							{% else %}
+								<img class="card-img product-image" src="https://via.placeholder.com/300.png/09f/fff" alt="Default Image">
+							{% endif %}
+							<div class="card-img-overlay product-info">
+								<h5 class="card-title text-white">{{ product.name }}</h5>
+								<p class="product-category">{{ product.categories.title }}</p>
+								<p class="product-price">{{ product.price }}
+									€</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

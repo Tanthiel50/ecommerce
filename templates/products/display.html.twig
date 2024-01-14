@@ -1,80 +1,87 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nom de l'article - Boutique en ligne{% endblock %}
-
 {% block body %}
-<div class="product-display">
-    <div class="container py-5">
-        <div class="row mb-3">
-            <!-- Breadcrumb and Return Link -->
-            <div class="col-6">
-                <a href="#" class="d-flex align-items-center">
-                    <i class="bi bi-arrow-left"></i> <span class="ml-2">Retour vers la gamme</span>
-                </a>
-            </div>
-            <div class="col-6 text-right">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-end">
-                        <li class="breadcrumb-item"><a href="#">Gamme</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Produit</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Product Image -->
-            <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x400" alt="Nom de l'article" class="img-fluid">
-            </div>
-            <!-- Product Details and Actions -->
-            <div class="col-md-6">
-                <div class="product-details">
-                    <h1 class="product-title mb-3">Nom de l'article</h1>
-                    <p class="product-description">Description détaillée du produit.</p>
-                    <p class="product-price mb-4">Prix: <strong>99,99 €</strong></p>
-                    <div class="product-actions">
-                        <button class="btn btn-primary btn-lg mr-3">Ajouter au panier</button>
-                        <button class="btn btn-outline-secondary btn-lg">Ajouter aux favoris</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-<h2>Produits similaires</h2>
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img" src="https://via.placeholder.com/300.png/09f/fff" alt="Article Image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Titre de l'article</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
+	<div class="product-display">
+		<div class="container py-5">
+			<div
+				class="row mb-3">
+				<!-- Breadcrumb and Return Link -->
+				<div class="col-6">
+					<a href="{{ path('home') }}" class="d-flex align-items-center">
+						<span class="ml-2">Retour</span>
+					</a>
+				</div>
+				<div class="col-6 text-right">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb justify-content-end">
+							<li class="breadcrumb-item">
+								<a href="{{ path('home') }}">Accueil /</a>
+							</li>
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_products_category', {'id': product.categories.id}) }}">{{ product.categories.title }}
+									/</a>
+							</li>
+							<li class="breadcrumb-item active text-white" aria-current="page">{{ product.name }}</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<div
+				class="row">
+				<!-- Product Image -->
+				<div class="col-md-6">
+					{% if product.image|length > 0 %}
+						{% set firstImage = product.image.first %}
+						<img src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ product.name }}" class="img-fluid card-img product-image">
+					{% else %}
+						<img class="card-img product-image" src="https://via.placeholder.com/300.png/09f/fff" alt="Default Image">
+					{% endif %}
+				</div>
+				<!-- Product Details and Actions -->
+				<div class="col-md-6">
+					<div class="product-details">
+						<h1 class="product-title mb-3 text-white">{{ product.name }}</h1>
+						<p class="product-description text-white">{{ product.description }}</p>
+						<p class="product-price mb-4 text-white">Prix:
+							<strong>{{ product.price }}
+								€</strong>
+						</p>
+						{% if product.price != product.getEffectivePrice() %}
+							<p class="product-price mb-4 text-white">Prix remisé:
+								<strong>{{ product.getEffectivePrice() }}
+									€</strong>
+							</p>
+						{% endif %}
+						<div class="product-actions">
+							<button class="btn button2 btn-lg mr-3">Ajouter au panier</button>
+							{# <button class="btn btn-watch btn-lg">Ajouter aux favoris</button> #}
+						</div>
+					</div>
+				</div>
+			</div>
+			<h2 class="text-white pt-5">Produits similaires</h2>
+			<div class="row mb-4">
+				{% for similarProduct in similarProducts %}
+					<div class="col-md-3">
+                    <a href="{{ path('app_products_display', {'id': similarProduct.id}) }}">
+						<div class="card product-card">
+							{% if similarProduct.image|length > 0 %}
+								{% set firstImage = similarProduct.image.first %}
+								<img class="card-img product-image" src="{{ asset('uploads/products/' ~ firstImage.path) }}" alt="{{ similarProduct.name }}">
+							{% else %}
+								<img class="card-img product-image" src="https://via.placeholder.com/300.png/09f/fff" alt="Default Image">
+							{% endif %}
+							<div class="card-img-overlay product-info">
+								<h5 class="card-title text-white">{{ similarProduct.name }}</h5>
+                                <p class="product-category">{{ product.categories.title }}</p>
+                                <p class="product-price">{{ product.price }} €</p>
+							</div>
+						</div>
+                    </a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
