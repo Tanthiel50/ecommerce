@@ -46,12 +46,7 @@
     <h2 class="text-center text-white">Les catégories</h2>
     {% for category in categories %}
         <div class="col-md-3 mb-4 last-arrived">
-            <div class="card text-center">
-                <div class="card-body border border-warning">
-                    <h5 class="card-title">{{category.title}}</h5>
-                    <a href="{{ path('app_products_category', {'id': category.id}) }}" class="btn btn-edit">Voir</a>
-                </div>
-            </div>
+            <a href="{{ path('app_products_category', {'id': category.id}) }}" class="btn button2">{{category.title}}</a>
         </div>
         {% endfor %}
     </div>

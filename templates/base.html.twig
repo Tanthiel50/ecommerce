@@ -37,18 +37,11 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path('home') }}">Accueil</a>
 						</li>
+						{% for category in categories %}
 						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 1</a>
+							<a class="nav-link" href="{{ path('app_products_category', {'id': category.id}) }}">{{category.title}}</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 2</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 3</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Catégorie 4</a>
-						</li>
+						{% endfor %}
 					</ul>
 					<!-- Left links -->
 				</div>
@@ -67,31 +60,17 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_register') }}">S'enregistrer</a>
 							</li>
-							<li class="nav-item">
+							{# <li class="nav-item">
 								<a class="nav-link" href="#">Panier</a>
-							</li>
+							</li> #}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_products_index') }}">Administration</a>
 							</li>
-						</ul>
-						<a data-mdb-dropdown-init class="link-secondary me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
-							Mon compte
-						</a>
-						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-							<li>
-								<a class="dropdown-item" href="">Profil</a>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_user_profile', {'id': app.user.id}) }}">Mon profil</a>
 							</li>
-							<li>
-								<a class="dropdown-item" href="#">Mes commandes</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Administration</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Mes favoris</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="#">Se deconnecter</a>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Deconnexion</a>
 							</li>
 						</ul>
 					</div>

@@ -1,0 +1,38 @@
+{# templates/user/profile.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                    <h5 class="card-header">Vos commandes</h5>
+                <div class="card-body">
+                    <p class="card-text">Commande 1</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    Informations du Profil
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Détails personnels</h5>
+                    <p class="card-text">Nom: {{ user.lastName }}</p>
+                    <p class="card-text">Prénom: {{ user.firstName }}</p>
+                    <p class="card-text">Pseudo: {{ user.pseudo }}</p>
+                    <p class="card-text">Email: {{ user.email }}</p>
+                    <p class="card-text">Adresse: {{ user.adress }}</p>
+                    <p class="card-text">Code postal: {{ user.zipcode }}</p>
+                    <p class="card-text">Ville: {{ user.city }}</p>
+                </div>
+            </div>
+<a href="{{ path('app_user_profile_edit', {'id': user.id}) }}" class="btn button2 mt-3">Modifier le Profil</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

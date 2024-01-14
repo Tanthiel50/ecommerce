@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserProfileType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -36,7 +37,7 @@ class UserController extends AbstractController
                     $user,
                     $form->get('password')->getData()
                 )
-                );
+            );
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -59,25 +60,25 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
-{
-    $form = $this->createForm(UserType::class, $user);
-    $form->handleRequest($request);
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        if ($form->has('new_password')) {
-            $newPassword = $form->get('new_password')->getData();
-            if ($newPassword) {
-                $hashedPassword = $userPasswordHasherInterface->hashPassword($user, $newPassword);
-                $user->setPassword($hashedPassword);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->has('new_password')) {
+                $newPassword = $form->get('new_password')->getData();
+                if ($newPassword) {
+                    $hashedPassword = $userPasswordHasherInterface->hashPassword($user, $newPassword);
+                    $user->setPassword($hashedPassword);
+                }
             }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-    
-        $entityManager->persist($user);
-        $entityManager->flush();
-    
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-    }
 
         return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
@@ -88,11 +89,60 @@ public function edit(Request $request, User $user, EntityManagerInterface $entit
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/profile/{id}', name: 'app_user_profile')]
+    public function profile(UserRepository $userRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        }
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profile/edit/{id}', name: 'app_user_profile_edit')]
+    public function editProfile(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManager, UserRepository $userRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (!$user || $user !== $this->getUser()) {
+            throw $this->createNotFoundException('Utilisateur non trouvé ou accès non autorisé.');
+        }
+
+        $form = $this->createForm(UserProfileType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('new_password')->getData()) {
+                if ($form->has('new_password')) {
+                    $newPassword = $form->get('new_password')->getData();
+                    if ($newPassword) {
+                        $hashedPassword = $userPasswordHasherInterface->hashPassword($user, $newPassword);
+                        $user->setPassword($hashedPassword);
+                    }
+                }
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour avec succès.');
+
+            return $this->redirectToRoute('app_user_profile', ['id' => $id]);
+        }
+
+        return $this->render('user/profileEdit.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
