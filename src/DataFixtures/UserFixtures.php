@@ -11,7 +11,6 @@ class UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // Créez et persistez les objets User ici
         $user = new User();
         $user->setEmail('user@user.fr');
         $user->setFirstName('User');

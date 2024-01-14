@@ -80,7 +80,7 @@ class Categories
     public function removeProductId(Products $productId): static
     {
         if ($this->product_id->removeElement($productId)) {
-            // set the owning side to null (unless already changed)
+
             if ($productId->getCategories() === $this) {
                 $productId->setCategories(null);
             }
